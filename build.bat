@@ -6,7 +6,13 @@ echo ============================================
 
 cd /d "%~dp0"
 
-set VENV_PYTHON=e:\Leadow\ds_stock\.venv\Scripts\python.exe
+set VENV_PYTHON=%~dp0.venv\Scripts\python.exe
+if not exist "%VENV_PYTHON%" (
+    echo 找不到虚拟环境中的 Python：%VENV_PYTHON%
+    echo 请先确认 .venv 存在并安装依赖
+    pause
+    exit /b 1
+)
 
 echo 清理上次构建...
 rmdir /s /q dist\ds_stock 2>nul
@@ -23,6 +29,7 @@ echo 开始打包...
     --noconfirm ^
     --clean ^
     --add-data "config.py;." ^
+    --add-data "config.json;." ^
     --add-data "stock_data.py;." ^
     --add-data "deepseek_client.py;." ^
     --add-data "mcp_server.py;." ^
@@ -57,7 +64,7 @@ echo 开始打包...
 echo.
 if exist "dist\ds_stock\ds_stock.exe" (
     echo 打包成功！
-    echo 输出目录: dist\ds_stock\
+    echo 输出目录: dist\ds_stock
     echo 运行: dist\ds_stock\ds_stock.exe
 ) else (
     echo 打包失败，请检查错误信息。

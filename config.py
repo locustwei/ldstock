@@ -1,10 +1,17 @@
 """配置管理模块 - 管理DeepSeek API Key和数据刷新间隔"""
 import json
 import os
+import sys
 from typing import Optional
 
 
-CONFIG_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "config.json")
+def _get_config_base_path() -> str:
+    if getattr(sys, "frozen", False):
+        return os.path.dirname(sys.executable)
+    return os.path.dirname(os.path.abspath(__file__))
+
+
+CONFIG_FILE = os.path.join(_get_config_base_path(), "config.json")
 
 DEFAULT_CONFIG = {
     "deepseek_api_key": "",
