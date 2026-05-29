@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+dist/
+build/
+*.spec
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Config (contains API key)
+config.json
+
+# Test files
+test_*.py
+check_*.py
+
+# OS
+Thumbs.db
+.DS_Store
